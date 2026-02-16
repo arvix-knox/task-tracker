@@ -8,7 +8,9 @@ certifi==2026.1.4
 cffi==2.0.0
 click==8.3.1
 cryptography==46.0.5
+dnspython==2.8.0
 ecdsa==0.19.1
+email-validator==2.3.0
 fastapi==0.129.0
 greenlet==3.3.1
 h11==0.16.0
