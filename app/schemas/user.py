@@ -14,7 +14,7 @@ class UserResponse(BaseModel):
     id: uuid.UUID
     email: EmailStr
     username: str
-    is_active: bool
+    is_active: bool # уверен, что это нужно? у тебя в модели бд этого нет
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
