@@ -23,29 +23,29 @@ def create_access_token(data: dict, expires_delta: timedelta = None) -> str:
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=settings.access_token_expire_minutes)
+        expire = datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
 
     to_encode.update({"exp": expire})
 
     # создаём токен
-    encode_jwt = jwt.encode(to_encode, settings.secret_key, algorithm=settings.algorithm)
+    encode_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     return encode_jwt
 
 def create_refresh_token(data: dict) -> str:
     """ создание refresh токена """
     to_encode = data.copy()
 
-    expire = datetime.utcnow() + timedelta(days=settings.refresh_token_expire_days)
+    expire = datetime.utcnow() + timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)
     to_encode.update({"exp": expire, "type": "refresh"})
 
-    encode_jwt = jwt.encode(to_encode, settings.secret_key, algorithm=settings.algorithm)
+    encode_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
     return encode_jwt
 
 def decode_token(token: str) -> dict:
     """Расшифровка токена"""
     try:
-        payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         return payload
     except JWTError:
                 return None
