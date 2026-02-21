@@ -48,5 +48,10 @@ def decode_token(token: str) -> dict:
         payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
         return payload
     except JWTError:
+                return None
+    except jwt.InvalidTokenError:
         return None
-
+    except Exception as e:
+        
+        print(f"Unexpected error decoding token: {e}")
+        return None
