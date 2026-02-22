@@ -42,17 +42,19 @@ class RefreshToken(Base):
         nullable=True,
     )
     
-    # Для отслеживания устройств
+    
     device_info: Mapped[str | None] = mapped_column(
         String(255),
         nullable=True,
     )
     
     ip_address: Mapped[str | None] = mapped_column(
-        String(45),  # IPv6
+        String(45),  
         nullable=True,
     )
 
     __table_args__ = (
         Index('ix_refresh_tokens_user_id_revoked', 'user_id', 'revoked_at'),
     )
+
+    
