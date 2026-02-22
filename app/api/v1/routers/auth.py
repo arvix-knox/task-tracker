@@ -24,5 +24,18 @@ async def refresh(request: RefreshTokenRequest, db: AsyncSession = Depends(get_a
 
 
 
+@router.post("/logout")
+async def logout(
+    request: RefreshTokenRequest,
+    db: AsyncSession = Depends(get_async_session)
+):
+    return await logout_user(db, request.refresh_token)
 
+
+@router.post("/logout-all")
+async def logout_all(
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_session)
+):
+    return await logout_all_sessions(db, current_user.id)
 
