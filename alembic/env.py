@@ -8,9 +8,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from app.config import settings
 from app.db.base import Base
-from app.models import User, Task  # noqa: F401
-from app.models.workspace import Workspace
-from app.models.workspacemember import WorkspaceMember
+from app.models import RefreshToken, Task, User, Workspace, WorkspaceMember  # noqa: F401
 
 config = context.config
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
