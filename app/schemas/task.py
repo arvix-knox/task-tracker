@@ -1,5 +1,5 @@
-from datetime import datetime
 import uuid
+from datetime import datetime
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -72,6 +72,7 @@ class TaskResponse(BaseModel):
     is_completed: bool
     priority: TaskPriority
     due_date: datetime | None
+    workspace_id: uuid.UUID
     user_id: uuid.UUID
     created_at: datetime
     updated_at: datetime

@@ -64,9 +64,7 @@ async def login_user(
     device_info: str | None = None,
     ip_address: str | None = None,
 ) -> dict:
-    result = await db.execute(
-        select(User).where(User.email == user_data.email)
-    )
+    result = await db.execute(select(User).where(User.email == user_data.email))
     user = result.scalar_one_or_none()
 
     if not user or not verify_password(user_data.password, user.hashed_password):
@@ -81,12 +79,8 @@ async def login_user(
             detail="Аккаунт деактивирован",
         )
 
-    access_token = create_access_token(
-        data={"sub": str(user.id), "email": user.email}
-    )
-    refresh_token, jti = create_refresh_token(
-        data={"sub": str(user.id)}
-    )
+    access_token = create_access_token(data={"sub": str(user.id), "email": user.email})
+    refresh_token, jti = create_refresh_token(data={"sub": str(user.id)})
 
     refresh_token_data: dict[str, object] = {
         "token_jti": jti,
@@ -166,9 +160,7 @@ async def refresh_access_token(db: AsyncSession, refresh_token: str) -> dict:
             detail="Refresh token истёк",
         )
 
-    result = await db.execute(
-        select(User).where(User.id == user_id)
-    )
+    result = await db.execute(select(User).where(User.id == user_id))
     user = result.scalar_one_or_none()
 
     if not user or not user.is_active:

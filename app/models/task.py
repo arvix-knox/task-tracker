@@ -16,6 +16,12 @@ class Task(Base):
         primary_key=True,
         server_default=text("gen_random_uuid()"),
     )
+    workspace_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("workspaces.id", ondelete="CASCADE"),
+        index=True,
+        nullable=False,
+    )
 
     title: Mapped[str] = mapped_column(
         String(200),
